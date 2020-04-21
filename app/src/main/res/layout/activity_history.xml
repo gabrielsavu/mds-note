@@ -4,4 +4,38 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context=".activity.HistoryActivity"/>
+    tools:context=".HistoryActivity">
+
+    <EditText
+        android:id="@+id/editText2"
+        android:layout_width="353dp"
+        android:layout_height="76dp"
+        android:ems="10"
+        android:gravity="center|center_horizontal"
+        android:inputType="textPersonName"
+        android:text="https://google.ro"
+        android:textAllCaps="true"
+        android:textIsSelectable="true"
+        app:layout_constraintBottom_toTopOf="@+id/webView"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.5"
+        app:layout_constraintStart_toStartOf="parent" />
+
+    <Button
+        android:id="@+id/button"
+        android:layout_width="97dp"
+        android:layout_height="217dp"
+        android:text="OpenURL"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent" />
+
+    <WebView
+        android:id="@+id/webView"
+        android:layout_width="401dp"
+        android:layout_height="373dp"
+        android:layout_marginStart="4dp"
+        android:layout_marginLeft="4dp"
+        android:layout_marginTop="340dp"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent" />
+</androidx.constraintlayout.widget.ConstraintLayout>
