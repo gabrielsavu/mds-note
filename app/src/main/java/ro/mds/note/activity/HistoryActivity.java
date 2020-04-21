@@ -1,14 +1,16 @@
-package ro.mds.note;
+package ro.mds.note.activity;
 
 import androidx.appcompat.app.AppCompatActivity;
 
 import android.os.Bundle;
 
-public class NoteActivity extends AppCompatActivity {
+import ro.mds.note.R;
+
+public class HistoryActivity extends AppCompatActivity {
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_note);
+        setContentView(R.layout.activity_history);
     }
 }
