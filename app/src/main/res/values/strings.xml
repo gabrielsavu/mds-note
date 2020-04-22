@@ -1,4 +1,7 @@
 <resources>
     <string name="app_name">Note</string>
     <string name="second">Secund</string>
+    <string name="save_file">Save File</string>
+    <string name="enter_details">enter_details</string>
+    <string name="enter_title">enter_title</string>
 </resources>
