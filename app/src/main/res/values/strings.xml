@@ -3,4 +3,8 @@
     <string name="enter_title">Enter Title</string>
     <string name="enter_details">Enter Details</string>
     <string name="save">Save</string>
+    <string name="history_title">Notes History</string>
+    <string name="over_line">Overline</string>
+    <string name="loading">Loading...</string>
+    <string name="no_results">No more results</string>
 </resources>
