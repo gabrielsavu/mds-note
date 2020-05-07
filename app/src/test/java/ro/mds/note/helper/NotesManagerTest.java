@@ -6,6 +6,7 @@ import androidx.test.core.app.ApplicationProvider;
 import androidx.test.platform.app.InstrumentationRegistry;
 import org.junit.jupiter.api.*;
 import ro.mds.note.ExampleUnitTest;
+import ro.mds.note.activity.HistoryActivity;
 import ro.mds.note.activity.MainActivity;
 import ro.mds.note.entity.Note;
 
@@ -22,7 +23,7 @@ class NotesManagerTest {
     @BeforeEach
     void init(){
         notesManager=new NotesManager();
-        context = ApplicationProvider.getApplicationContext();
+        context = InstrumentationRegistry.getInstrumentation().getContext();
         note=new Note("Test Save","Save this note");
     }
 

@@ -1,11 +1,11 @@
 package ro.mds.note.entity;
 
 import java.io.Serializable;
+import java.util.Vector;
 
 public class Note implements Serializable {
     private String title;
     private String content;
-
     public Note(String title, String content) {
         this.title = title;
         this.content = content;
@@ -16,7 +16,6 @@ public class Note implements Serializable {
     public String getTitle() {
         return title;
     }
-
     public void setTitle(String title) {
         this.title = title;
     }

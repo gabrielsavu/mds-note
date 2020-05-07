@@ -4,7 +4,7 @@ import android.widget.AbsListView;
 
 public abstract class LazyLoader implements AbsListView.OnScrollListener {
 
-    private static final int DEFAULT_THRESHOLD = 10;
+    private static final int DEFAULT_THRESHOLD = 3;
 
     private boolean loading = true;
     private int previousTotal = 0;

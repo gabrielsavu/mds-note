@@ -1,5 +1,10 @@
 package ro.mds.note.activity;
 
+import android.content.DialogInterface;
+import android.view.Menu;
+import android.view.MenuItem;
+import android.widget.*;
+import androidx.appcompat.app.AlertDialog;
 import androidx.appcompat.app.AppCompatActivity;
 
 import android.content.Intent;
@@ -7,10 +12,6 @@ import android.os.Bundle;
 import android.util.Log;
 import android.view.Gravity;
 import android.view.View;
-import android.widget.AbsListView;
-import android.widget.ListView;
-import android.widget.ProgressBar;
-import android.widget.TextView;
 
 import java.util.List;
 
@@ -39,7 +40,11 @@ public class HistoryActivity extends AppCompatActivity {
             adapter.addAll(responseItems);
         }
     };
-
+    @Override
+    public boolean onCreateOptionsMenu(Menu menu) {
+        getMenuInflater().inflate(R.menu.menu2, menu);
+        return true;
+    }
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -86,7 +91,7 @@ public class HistoryActivity extends AppCompatActivity {
     }
 
     private void loadItems() {
-        List<Note> notes = NotesManager.readNotes(getApplicationContext(), page, page + 3);
+        List<Note> notes = NotesManager.readNotes(HistoryActivity.this, page, page + 3);
         if (notes.isEmpty()) {
             historyListView.removeFooterView(footerView);
             return;
@@ -94,5 +99,42 @@ public class HistoryActivity extends AppCompatActivity {
         page = page + 3;
         System.out.println(notes);
         responseListener.onResponse(notes);
+    }
+    @Override
+    public boolean onOptionsItemSelected(MenuItem item) {
+        if (item.getItemId() == R.id.deleteNote) {
+            final EditText input = new EditText(HistoryActivity.this);
+            LinearLayout.LayoutParams lp = new LinearLayout.LayoutParams(
+                    LinearLayout.LayoutParams.MATCH_PARENT,
+                    LinearLayout.LayoutParams.MATCH_PARENT);
+            input.setLayoutParams(lp);
+            new AlertDialog.Builder(this)
+                    .setTitle("Delete entry")
+                    .setMessage("Are you sure you want to delete this entry?")
+                    .setView(input)
+                    .setPositiveButton(android.R.string.yes, new DialogInterface.OnClickListener() {
+                        public void onClick(DialogInterface dialog, int which) {
+                            if(NotesManager.deleteNote(getApplicationContext(),input.getText().toString())==true) {
+
+                                for(int i=0;i<=adapter.getCount();++i){
+                                    if(adapter.getItem(i).getTitle().equals(input.getText().toString()))
+                                    {
+                                        adapter.remove(adapter.getItem(i));
+                                        historyListView.setAdapter(adapter);
+                                        break;
+                                    }
+                                }
+                                Toast.makeText(getApplicationContext(), "The files has been deleted", Toast.LENGTH_LONG).show();
+                            }
+                            else
+                                Toast.makeText(getApplicationContext(),"The files hasn't been found",Toast.LENGTH_LONG).show();
+                        }
+                    })
+
+                    .setNegativeButton(android.R.string.no, null)
+                    .setIcon(android.R.drawable.ic_dialog_alert)
+                    .show();
+        }
+        return super.onOptionsItemSelected(item);
     }
 }
