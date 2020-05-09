@@ -6,15 +6,9 @@ import android.view.MenuItem;
 import android.widget.*;
 import androidx.appcompat.app.AlertDialog;
 import androidx.appcompat.app.AppCompatActivity;
-
 import android.content.Intent;
 import android.os.Bundle;
-import android.util.Log;
-import android.view.Gravity;
-import android.view.View;
-
 import java.util.List;
-
 import ro.mds.note.R;
 import ro.mds.note.adapter.NoteListAdapter;
 import ro.mds.note.entity.Note;
@@ -124,10 +118,10 @@ public class HistoryActivity extends AppCompatActivity {
                                         break;
                                     }
                                 }
-                                Toast.makeText(getApplicationContext(), "The files has been deleted", Toast.LENGTH_LONG).show();
+                                Toast.makeText(getApplicationContext(), "The file has been deleted", Toast.LENGTH_LONG).show();
                             }
                             else
-                                Toast.makeText(getApplicationContext(),"The files hasn't been found",Toast.LENGTH_LONG).show();
+                                Toast.makeText(getApplicationContext(),"The file couldn't be deleted",Toast.LENGTH_LONG).show();
                         }
                     })
 
