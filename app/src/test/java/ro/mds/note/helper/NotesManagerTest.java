@@ -1,16 +1,12 @@
 package ro.mds.note.helper;
 
-import android.app.Application;
 import android.content.Context;
-import androidx.test.core.app.ApplicationProvider;
+
 import androidx.test.platform.app.InstrumentationRegistry;
 import org.junit.jupiter.api.*;
-import ro.mds.note.ExampleUnitTest;
-import ro.mds.note.activity.HistoryActivity;
-import ro.mds.note.activity.MainActivity;
+
 import ro.mds.note.entity.Note;
 
-import java.io.FileNotFoundException;
 import java.util.ArrayList;
 import java.util.List;
 
