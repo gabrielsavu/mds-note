@@ -22,7 +22,7 @@ public class NotesManager {
         try {
             FileOutputStream fos = context.openFileOutput(note.getTitle(), Context.MODE_PRIVATE);
             ObjectMapper objectMapper = new ObjectMapper();
-            objectMapper.writeValue(fos, note);
+             objectMapper.writeValue(fos, note);
             fos.close();
         } catch (IOException e) {
             e.printStackTrace();
