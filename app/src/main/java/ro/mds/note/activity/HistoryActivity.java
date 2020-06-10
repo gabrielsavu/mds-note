@@ -4,11 +4,15 @@ import android.content.DialogInterface;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.widget.*;
+
 import androidx.appcompat.app.AlertDialog;
 import androidx.appcompat.app.AppCompatActivity;
+
 import android.content.Intent;
 import android.os.Bundle;
+
 import java.util.List;
+
 import ro.mds.note.R;
 import ro.mds.note.adapter.NoteListAdapter;
 import ro.mds.note.entity.Note;
@@ -34,11 +38,13 @@ public class HistoryActivity extends AppCompatActivity {
             adapter.addAll(responseItems);
         }
     };
+
     @Override
     public boolean onCreateOptionsMenu(Menu menu) {
         getMenuInflater().inflate(R.menu.menu2, menu);
         return true;
     }
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -94,6 +100,7 @@ public class HistoryActivity extends AppCompatActivity {
         System.out.println(notes);
         responseListener.onResponse(notes);
     }
+
     @Override
     public boolean onOptionsItemSelected(MenuItem item) {
         if (item.getItemId() == R.id.deleteNote) {
@@ -108,20 +115,18 @@ public class HistoryActivity extends AppCompatActivity {
                     .setView(input)
                     .setPositiveButton(android.R.string.yes, new DialogInterface.OnClickListener() {
                         public void onClick(DialogInterface dialog, int which) {
-                            if(NotesManager.deleteNote(getApplicationContext(),input.getText().toString())==true) {
+                            if (NotesManager.deleteNote(getApplicationContext(), input.getText().toString())) {
 
-                                for(int i=0;i<=adapter.getCount();++i){
-                                    if(adapter.getItem(i).getTitle().equals(input.getText().toString()))
-                                    {
+                                for (int i = 0; i <= adapter.getCount(); ++i) {
+                                    if (adapter.getItem(i).getTitle().equals(input.getText().toString())) {
                                         adapter.remove(adapter.getItem(i));
                                         historyListView.setAdapter(adapter);
                                         break;
                                     }
                                 }
                                 Toast.makeText(getApplicationContext(), "The file has been deleted", Toast.LENGTH_LONG).show();
-                            }
-                            else
-                                Toast.makeText(getApplicationContext(),"The file couldn't be deleted",Toast.LENGTH_LONG).show();
+                            } else
+                                Toast.makeText(getApplicationContext(), "The file couldn't be deleted", Toast.LENGTH_LONG).show();
                         }
                     })
 
