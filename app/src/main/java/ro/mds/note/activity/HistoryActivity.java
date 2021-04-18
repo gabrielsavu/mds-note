@@ -7,6 +7,8 @@ import android.widget.*;
 
 import androidx.appcompat.app.AlertDialog;
 import androidx.appcompat.app.AppCompatActivity;
+import androidx.recyclerview.widget.LinearLayoutManager;
+import androidx.recyclerview.widget.RecyclerView;
 
 import android.content.Intent;
 import android.os.Bundle;
@@ -14,30 +16,28 @@ import android.os.Bundle;
 import java.util.List;
 
 import ro.mds.note.R;
+import ro.mds.note.actions.Auth;
 import ro.mds.note.adapter.NoteListAdapter;
 import ro.mds.note.entity.Note;
 import ro.mds.note.helper.LazyLoader;
+
+
 import ro.mds.note.helper.NotesManager;
 import ro.mds.note.helper.ResponseListener;
 
 public class HistoryActivity extends AppCompatActivity {
 
     private static final String TAG = "HistoryActivity";
-
+    private NotesManager notesManager;
     private NoteListAdapter adapter;
-
+    private Auth authActions;
     private ProgressBar footerView;
 
-    private ListView historyListView;
+    private RecyclerView historyRecycleView;
 
     static private int page;
 
-    private ResponseListener<List<Note>> responseListener = new ResponseListener<List<Note>>() {
-        @Override
-        public void onResponse(List<Note> responseItems) {
-            adapter.addAll(responseItems);
-        }
-    };
+
 
     @Override
     public boolean onCreateOptionsMenu(Menu menu) {
@@ -48,9 +48,9 @@ public class HistoryActivity extends AppCompatActivity {
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_history);
 
-        // toolbar
+        setContentView(R.layout.activity_history);
+        notesManager=new NotesManager(getApplicationContext());
         androidx.appcompat.widget.Toolbar toolbar = findViewById(R.id.toolbar);
         setSupportActionBar(toolbar);
         if (getSupportActionBar() != null) {
@@ -58,29 +58,12 @@ public class HistoryActivity extends AppCompatActivity {
             getSupportActionBar().setTitle("Note History");
         }
         footerView = new ProgressBar(this);
-        historyListView = findViewById(R.id.historyListView);
-        historyListView.addFooterView(footerView);
+        historyRecycleView = findViewById(R.id.historyRecyclerView);
+//        historyRecycleView.addFooterView(footerView);
         adapter = new NoteListAdapter(this, R.layout.adapter_note_list_layout);
-        historyListView.setAdapter(adapter);
+        historyRecycleView.setAdapter(adapter);
         page = 0;
-        historyListView.setOnScrollListener(new LazyLoader() {
-
-            @Override
-            public void loadMore(AbsListView absListView, int firstVisibleItem, int visibleItemCount, int totalItemCount) {
-                loadItems();
-            }
-        });
-        historyListView.setOnItemClickListener((adapterView, view, i, l) -> {
-            Note note = (Note) adapterView.getItemAtPosition(i);
-            if (note != null) {
-
-                Intent intent = new Intent(getApplicationContext(), NoteActivity.class);
-                intent.putExtra("noteTitle", note.getTitle());
-                startActivity(intent);
-            }
-
-        });
-
+        historyRecycleView.setLayoutManager(new LinearLayoutManager(this, LinearLayoutManager.VERTICAL, false));
         loadItems();
     }
 
@@ -91,14 +74,10 @@ public class HistoryActivity extends AppCompatActivity {
     }
 
     private void loadItems() {
-        List<Note> notes = NotesManager.readNotes(HistoryActivity.this, page, page + 3);
-        if (notes.isEmpty()) {
-            historyListView.removeFooterView(footerView);
-            return;
-        }
-        page = page + 3;
+        List<Note> notes = notesManager.readNotes();
+
         System.out.println(notes);
-        responseListener.onResponse(notes);
+        adapter.addAll(notes);
     }
 
     @Override
@@ -115,12 +94,12 @@ public class HistoryActivity extends AppCompatActivity {
                     .setView(input)
                     .setPositiveButton(android.R.string.yes, new DialogInterface.OnClickListener() {
                         public void onClick(DialogInterface dialog, int which) {
-                            if (NotesManager.deleteNote(getApplicationContext(), input.getText().toString())) {
+                            if (notesManager.deleteNote(input.getText().toString())) {
 
-                                for (int i = 0; i <= adapter.getCount(); ++i) {
-                                    if (adapter.getItem(i).getTitle().equals(input.getText().toString())) {
-                                        adapter.remove(adapter.getItem(i));
-                                        historyListView.setAdapter(adapter);
+                                for (int i = 0; i <= adapter.getItemCount(); ++i) {
+                                    if (adapter.getNote(i).getTitle().equals(input.getText().toString())) {
+                                        adapter.remove(i);
+                                        historyRecycleView.setAdapter(adapter);
                                         break;
                                     }
                                 }
