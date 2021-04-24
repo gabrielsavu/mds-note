@@ -10,7 +10,6 @@ import androidx.appcompat.app.AppCompatActivity;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
-import android.content.Intent;
 import android.os.Bundle;
 
 import java.util.List;
@@ -19,11 +18,9 @@ import ro.mds.note.R;
 import ro.mds.note.actions.Auth;
 import ro.mds.note.adapter.NoteListAdapter;
 import ro.mds.note.entity.Note;
-import ro.mds.note.helper.LazyLoader;
 
 
 import ro.mds.note.helper.NotesManager;
-import ro.mds.note.helper.ResponseListener;
 
 public class HistoryActivity extends AppCompatActivity {
 
@@ -31,7 +28,6 @@ public class HistoryActivity extends AppCompatActivity {
     private NotesManager notesManager;
     private NoteListAdapter adapter;
     private Auth authActions;
-    private ProgressBar footerView;
 
     private RecyclerView historyRecycleView;
 
@@ -57,9 +53,9 @@ public class HistoryActivity extends AppCompatActivity {
             getSupportActionBar().setDisplayHomeAsUpEnabled(true);
             getSupportActionBar().setTitle("Note History");
         }
-        footerView = new ProgressBar(this);
+
         historyRecycleView = findViewById(R.id.historyRecyclerView);
-//        historyRecycleView.addFooterView(footerView);
+
         adapter = new NoteListAdapter(this, R.layout.adapter_note_list_layout);
         historyRecycleView.setAdapter(adapter);
         page = 0;

@@ -80,7 +80,6 @@ public class LoginActivity extends AppCompatActivity {
          fbLogin.setOnClickListener(new View.OnClickListener() {
              @Override
              public void onClick(View v) {
-                 System.out.println("BRRRRRRRRRRRRRR");
                  fbLogin.registerCallback(callbackManager, new FacebookCallback<LoginResult>() {
                      @Override
                      public void onSuccess(LoginResult loginResult) {

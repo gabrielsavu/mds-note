@@ -8,7 +8,7 @@ import android.os.Bundle;
 import android.view.View;
 import android.widget.Button;
 import android.content.SharedPreferences;
-import com.facebook.CallbackManager;
+
 import com.facebook.FacebookCallback;
 import com.facebook.FacebookException;
 import com.facebook.login.LoginManager;
@@ -19,7 +19,7 @@ import ro.mds.note.R;
 
 public class MainActivity extends AppCompatActivity {
     Button logout;
-    CallbackManager callbackManager;
+
     SharedPreferences sharedPreferences;
     SharedPreferences.Editor editor;
     Boolean saveData;
@@ -60,10 +60,5 @@ public class MainActivity extends AppCompatActivity {
             }
         });
     }
-    @Override
-    protected void onActivityResult(int requestCode, int resultCode, Intent data) {
-        callbackManager.onActivityResult(requestCode, resultCode, data);
-        System.out.println("BRRRRRRRRRRRRRRRR");
-        super.onActivityResult(requestCode, resultCode, data);
-    }
+
 }
