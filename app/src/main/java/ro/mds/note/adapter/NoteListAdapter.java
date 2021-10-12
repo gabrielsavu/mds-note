@@ -20,16 +20,14 @@ import ro.mds.note.activity.NoteActivity;
 import ro.mds.note.entity.Note;
 
 public class NoteListAdapter extends RecyclerView.Adapter<NoteListAdapter.MyViewHolder> {
-    public class MyViewHolder extends RecyclerView.ViewHolder{
+    public class  MyViewHolder extends RecyclerView.ViewHolder{
         TextView titleView;
         TextView textView;
         LinearLayout mainLayout;
         @SuppressLint("ResourceType")
         public MyViewHolder(@NonNull View itemView) {
             super(itemView);
-            System.out.println(itemView.findViewById(R.layout.adapter_note_list_layout)+"REEEEEEEEEEEEE");
             mainLayout=itemView.findViewById(R.id.mainLayout);
-            System.out.println("mainlayout= "+mainLayout);
             titleView = itemView.findViewById(R.id.title);
             textView = itemView.findViewById(R.id.content);
             System.out.println(titleView+" "+mainLayout);
@@ -58,7 +56,6 @@ public class NoteListAdapter extends RecyclerView.Adapter<NoteListAdapter.MyView
     @NonNull
     @Override
     public NoteListAdapter.MyViewHolder onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
-        System.out.println("BRRRRRRRRRRRRR");
         LayoutInflater inflater = LayoutInflater.from(mContext);
         System.out.println(mResource);
         View view=inflater.inflate(mResource, parent, false);
@@ -73,7 +70,9 @@ public class NoteListAdapter extends RecyclerView.Adapter<NoteListAdapter.MyView
         String text = lists.get(position).getContent();
         holder.titleView.setText(title);
         holder.textView.setText(text);
-        System.out.println(holder.mainLayout+"KKKKKKKKKKKKKKKKK");
+        if (title.length() > 20) {
+            title = title.substring(0, 20) + "...";
+        }
         String finalTitle = title;
         holder.itemView.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -84,9 +83,7 @@ public class NoteListAdapter extends RecyclerView.Adapter<NoteListAdapter.MyView
             }
         });
 
-        if (title.length() > 20) {
-            title = title.substring(0, 20) + "...";
-        }
+
 
 
     }

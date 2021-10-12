@@ -22,7 +22,6 @@ public class MainActivity extends AppCompatActivity {
 
     SharedPreferences sharedPreferences;
     SharedPreferences.Editor editor;
-    Boolean saveData;
     @SuppressLint("CommitPrefEdits")
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -33,7 +32,6 @@ public class MainActivity extends AppCompatActivity {
         Button takeNoteBtn = findViewById(R.id.takeNoteBtn);
         Button historyBtn = findViewById(R.id.historyBtn);
         logout=findViewById(R.id.logout);
-        System.out.println("reeeeeeeeeeeeeeeeeeeee");
         takeNoteBtn.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {

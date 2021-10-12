@@ -5,6 +5,7 @@ import android.content.Context;
 import androidx.test.platform.app.InstrumentationRegistry;
 import org.junit.jupiter.api.*;
 
+import ro.mds.note.activity.LoginActivity;
 import ro.mds.note.entity.Note;
 
 import java.util.ArrayList;
@@ -18,8 +19,9 @@ class NotesManagerTest {
     Note note;
     @BeforeEach
     void init(){
-        notesManager=new NotesManager();
+
         context = InstrumentationRegistry.getInstrumentation().getContext();
+        notesManager=new NotesManager(context);
         note=new Note("Test Save","Save this note");
     }
 
@@ -31,8 +33,8 @@ class NotesManagerTest {
         @Test
         @DisplayName("Save a single note")
         void saveNote() {
-            assertAll(()->Assertions.assertDoesNotThrow(()->notesManager.saveNote(context,note)),
-                    ()->assertEquals(note,notesManager.saveNote(context,note)));
+            assertAll(()->Assertions.assertDoesNotThrow(()->notesManager.saveNote(note)),
+                    ()->assertEquals(note,notesManager.saveNote(note)));
 
 
         }
@@ -40,8 +42,8 @@ class NotesManagerTest {
         @Test
         @DisplayName("Read a single note")
         void readNote() {
-            assertAll(()->assertDoesNotThrow(()->notesManager.readNote(context,"Test Save")),
-                    ()->assertEquals(note,notesManager.readNote(context,"Test save")));
+            assertAll(()->assertDoesNotThrow(()->notesManager.readNote("Test Save")),
+                    ()->assertEquals(note,notesManager.readNote("Test save")));
         }
         @Tag("Files")
         @Test
@@ -50,14 +52,14 @@ class NotesManagerTest {
             List<Note> notes=new ArrayList<>();
             notes.add(new Note("First part","First part of text"));
             notes.add(new Note("Second part","Second part of text"));
-            assertAll(()->assertDoesNotThrow(()->notesManager.readNotes(context,1,2)),
-                    ()->assertEquals(note,notesManager.readNotes(context,1,2)));
+            assertAll(()->assertDoesNotThrow(()->notesManager.readNotes()),
+                    ()->assertEquals(notes,notesManager.readNotes()));
         }
         @Tag("Files")
         @Test
         @DisplayName("Delete a note")
         void deleteNote() {
-            assertTrue(notesManager.deleteNote(context,"My Test"));
+            assertTrue(notesManager.deleteNote("My Test"));
         }
     }
 }

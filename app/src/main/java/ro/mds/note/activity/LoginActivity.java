@@ -71,7 +71,7 @@ public class LoginActivity extends AppCompatActivity {
         sharedPreferences=getSharedPreferences("loginRef",MODE_PRIVATE);
         editor=sharedPreferences.edit();
         saveLogin=sharedPreferences.getBoolean("saveLogin",false);
-        if(saveLogin==true){
+        if(saveLogin){
             Intent intent=new Intent(LoginActivity.this,MainActivity.class);
             startActivity(intent);
         }
@@ -84,6 +84,7 @@ public class LoginActivity extends AppCompatActivity {
                      @Override
                      public void onSuccess(LoginResult loginResult) {
                          final AccessToken accessToken = loginResult.getAccessToken();
+
                          GraphRequestAsyncTask request = GraphRequest.newMeRequest(accessToken, new GraphRequest.GraphJSONObjectCallback() {
                              @Override
                              public void onCompleted(JSONObject user, GraphResponse graphResponse) {
@@ -113,7 +114,7 @@ public class LoginActivity extends AppCompatActivity {
         registerButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                System.out.println("VDSAsdasad");
+
                 Intent intent=new Intent(LoginActivity.this,RegisterActivity.class);
                 startActivity(intent);
             }
@@ -143,6 +144,7 @@ public class LoginActivity extends AppCompatActivity {
                         LinearLayout.LayoutParams.MATCH_PARENT,
                         LinearLayout.LayoutParams.MATCH_PARENT);
                 input.setLayoutParams(lp);
+
                 new AlertDialog.Builder(LoginActivity.this)
                         .setTitle("Forgot password?")
                         .setMessage("Please enter your email:")
@@ -159,21 +161,6 @@ public class LoginActivity extends AppCompatActivity {
                         .show();
             }
         });
-//        LoginManager.getInstance().logInWithReadPermissions(this, Arrays.asList("public_profile","email"));
-//        LoginManager.getInstance().retrieveLoginStatus(this, new LoginStatusCallback() {
-//            @Override
-//            public void onCompleted(AccessToken accessToken) {
-//                System.out.println(accessToken.getUserId()+" EEEEE "+accessToken);
-//            }
-//            @Override
-//            public void onFailure() {
-//
-//            }
-//            @Override
-//            public void onError(Exception exception) {
-//
-//            }
-//        });
 
 
     }
@@ -187,10 +174,7 @@ public class LoginActivity extends AppCompatActivity {
 
     @Override
     public boolean onOptionsItemSelected(MenuItem item) {
-        if (item.getItemId() == R.id.forgotPassword) {
-            System.out.println("FORGOTTTTT");
 
-        }
         return super.onOptionsItemSelected(item);
     }
 }

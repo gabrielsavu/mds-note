@@ -1,18 +1,24 @@
 apply plugin: 'com.android.application'
 
 android {
-    compileSdkVersion 29
-    buildToolsVersion "29.0.3"
+    compileSdkVersion 30
+    buildToolsVersion "30.0.2"
 
     defaultConfig {
         applicationId "ro.mds.note"
         minSdkVersion 21
-        targetSdkVersion 29
-        versionCode 1
+        targetSdkVersion 30
+        versionCode 2
         versionName "1.0"
         testInstrumentationRunner "androidx.test.runner.AndroidJUnitRunner"
     }
-
+    tasks.withType(Test) {
+        testLogging {
+            exceptionFormat "full"
+            events "started", "skipped", "passed", "failed"
+            showStandardStreams true
+        }
+    }
     buildTypes {
         release {
             minifyEnabled false
@@ -39,7 +45,7 @@ dependencies {
     implementation 'androidx.navigation:navigation-ui:2.0.0'
     implementation 'com.android.volley:volley:1.2.0'
     implementation 'androidx.legacy:legacy-support-v4:1.0.0'
-    implementation 'com.facebook.android:facebook-login:7.1.0'
+    implementation 'com.facebook.android:facebook-android-sdk:[8,9)'
     testImplementation 'junit:junit:4.12'
     testImplementation 'org.junit.jupiter:junit-jupiter-api:5.3.1'
     testRuntimeOnly 'org.junit.jupiter:junit-jupiter-engine:5.3.1'

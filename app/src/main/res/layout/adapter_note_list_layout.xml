@@ -58,14 +58,6 @@
                     android:textAppearance="@style/TextAppearance.MaterialComponents.Body2" />
             </LinearLayout>
 
-            <LinearLayout
-                android:layout_width="0dp"
-                android:layout_height="wrap_content"
-                android:layout_marginLeft="16dp"
-                android:layout_marginRight="16dp"
-                android:layout_weight="20"
-                android:gravity="end"
-                android:orientation="vertical"></LinearLayout>
         </LinearLayout>
     </com.google.android.material.card.MaterialCardView>
 </LinearLayout>
